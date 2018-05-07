@@ -5,6 +5,7 @@ import isDurationValid from './valid.js';
 export function Duration (duration) {
     var normalizedInput = normalizeObjectUnits(duration),
         // Test commit - fixed some bugs
+        // Fixed another bug
         centuries = normalizedInput.century || 0,
         years = normalizedInput.year || 0,
         quarters = normalizedInput.quarter || 0,
