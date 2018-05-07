@@ -4,6 +4,8 @@ import isDurationValid from './valid.js';
 
 export function Duration (duration) {
     var normalizedInput = normalizeObjectUnits(duration),
+        // Test commit - fixed some bugs
+        centuries = normalizedInput.century || 0,
         years = normalizedInput.year || 0,
         quarters = normalizedInput.quarter || 0,
         months = normalizedInput.month || 0,
@@ -16,13 +18,10 @@ export function Duration (duration) {
 
     this._isValid = isDurationValid(normalizedInput);
 
-    // representation for dateAddRemove
     this._milliseconds = +milliseconds +
         seconds * 1e3 + // 1000
         minutes * 6e4 + // 1000 * 60
         hours * 1000 * 60 * 60; //using 1000 * 60 * 60 instead of 36e5 to avoid floating point rounding errors https://github.com/moment/moment/issues/2978
-    // Because of dateAddRemove treats 24 hours as different from a
-    // day when working around DST, we need to store them separately
     this._days = +days +
         weeks * 7;
     // It is impossible to translate months into days without knowing
